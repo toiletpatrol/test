@@ -1,0 +1,268 @@
+<html lang="en"><head>
+<meta charset="utf-8">
+<title>Receipt</title>
+<style media="screen" type="text/css">a:hover {color:#187ffc !important;border-bottom-color:rgba(24, 127, 252, 0.25) !important}
+.pseudo:hover {color:#187ffc !important;border-bottom-color:rgba(24, 127, 252, 0.25) !important}
+a:active {color:#000000 !important;border-bottom-color:rgba(0, 0, 0, 0.25) !important}
+.pseudo:active {color:#000000 !important;border-bottom-color:rgba(0, 0, 0, 0.25) !important}
+.receipt-breakdown table tr:first-child > td {border:none !important}
+.receipt-driver td:last-child img {width:100% !important}</style>
+<style media="only screen and (max-width: 10000px)" type="text/css">
+    /* Desktop styles */
+    @media only screen and (max-width: 10000px) {
+      .shitter {
+        width: 0 !important;
+        display: none !important;
+      }
+      .receipt {
+        width: auto !important;
+        min-width: 700px !important;
+        max-width: 970px !important;
+      }
+      .receipt-cell {
+        min-width: 340px !important;
+        width: 50% !important;
+      }
+    }
+  </style>
+<style media="only screen and (max-width: 700px)" type="text/css">
+    /* Mobile styles */
+    @media only screen and (max-width: 700px) {
+      h2 {
+        font-size: 19px !important;
+        letter-spacing: 0.3px !important;
+      }
+      h4 {
+        font-size: 13px !important;
+        margin: 13px 0 8px !important;
+        letter-spacing: 0.2px !important;
+      }
+      p {
+        margin: 5px 0 !important;
+      }
+      p.small {
+        margin: 0 0 3px !important;
+      }
+      hr {
+        margin: 13px 0 !important;
+      }
+      .receipt {
+        min-width: 0 !important;
+        max-width: none !important;
+        width: auto !important;
+        font-size: 13px !important;
+      }
+      .receipt-logo {
+        margin: 5px 0 !important;
+        text-align: left !important;
+      }
+      .receipt-logo img {
+        width: 140px !important;
+      }
+      .small {
+        font-size: 11px !important;
+      }
+      .receipt-cell {
+        float: none !important;
+        width: auto !important;
+      }
+      .receipt-left-inner, .receipt-right-inner {
+        padding: 0 !important;
+      }
+      .receipt-title {
+        margin: 13px 0 0 !important;
+      }
+      .receipt-view-online {
+        padding: 0 !important;
+        margin: 0px 0 5px !important;
+        text-align: left !important;
+      }
+      .receipt-route {
+        margin-bottom: 8px !important;
+      }
+      .receipt-route td {
+        padding-top: 3px !important;
+        padding-bottom: 3px !important;
+      }
+      .receipt-passenger,
+      .receipt-breakdown,
+      .receipt-reference,
+      .receipt-map, 
+      .receipt-ride-info, 
+      .receipt-invite {
+        margin-bottom: 13px !important;
+      }
+      .receipt-invite td.receipt-invite-code {
+        padding: 5px !important;
+      }
+    }
+  </style>
+<style media="only print" type="text/css">
+    /* Mobile styles */
+    @media only print {
+      .shitter {
+        display: none !important;
+        width: auto !important;
+      }
+      .receipt {
+        min-width: 0 !important;
+        width: auto !important;
+      }
+      .receipt-cell {
+        min-width: 0 !important;
+        width: 50% !important;
+      }
+      .receipt-logo {
+        float: right !important;
+      }
+      .receipt-top .receipt-cell-right {
+        display: none !important;
+      }
+      .receipt-bottom {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="shitter" data-aln="381" height="1" style="-webkit-text-size-adjust:none; width:800px !important; height:1px" width="800px !important"></div>
+<div class="receipt" data-aln="383" style="-webkit-text-size-adjust:none; color:#444; -webkit-font-smoothing:antialiased; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:14px; font-weight:400; width:800px; min-width:800px; margin:0" width="800">
+<div class="receipt-top" data-aln="384" style="-webkit-text-size-adjust:none; margin-bottom:13px">
+<div align="right" class="receipt-logo" data-aln="385" style="-webkit-text-size-adjust:none; margin-bottom:8px; text-align:right">
+<img alt="Wheely" data-aln="386" src="https://s3-eu-west-1.amazonaws.com/static.wheely.com/receipt/wheely.png" style="width:160px" width="160">
+</div>
+<div class="receipt-row" data-aln="389" style="-webkit-text-size-adjust:none">
+<div class="receipt-cell receipt-cell-left" data-aln="390" style="-webkit-text-size-adjust:none; float:left; width:400px" width="400">
+<div class="receipt-left-inner" data-aln="391" style="-webkit-text-size-adjust:none; padding-right:10px">
+<div class="receipt-title" data-aln="392" style="-webkit-text-size-adjust:none">
+<h2 data-aln="393" style="font-size:21px; color:black; font-weight:800; display:inline-block; margin:0">Order #{{ order.number }}</h2>
+<span class="receipt-date normal" data-aln="394" style="font-weight:400; white-space:nowrap">of {{ order.formatted_sort_date }}</span>
+</div>
+</div>
+</div>
+<div align="right" class="receipt-cell receipt-cell-right" data-aln="399" style="-webkit-text-size-adjust:none; float:left; width:400px; text-align:right" width="400">
+<div class="receipt-right-inner" data-aln="400" style="-webkit-text-size-adjust:none; padding-left:10px">
+<div align="right" class="receipt-view-online" data-aln="401" style="-webkit-text-size-adjust:none; text-align:right; padding-top:7px">
+<a data-aln="402" data-click-track-id="4549" href="https://wheely.com/receipt/{{ order.id }}?utm_swu=4549" style="-webkit-text-size-adjust:none; color:#0a63d0; text-decoration:none; cursor:pointer; outline:none">View this booking online</a>
+</div>
+</div>
+</div>
+<div class="receipt-clear" data-aln="407" style="-webkit-text-size-adjust:none; clear:both"></div>
+</div>
+</div>
+<div class="receipt-row receipt-body" data-aln="411" style="-webkit-text-size-adjust:none">
+<div class="receipt-cell receipt-cell-left" data-aln="412" style="-webkit-text-size-adjust:none; float:left; width:400px" width="400">
+<div class="receipt-left-inner" data-aln="413" style="-webkit-text-size-adjust:none; padding-right:10px">
+<!-- Price -->
+<h2 align="right" class="receipt-price" data-aln="451" style="font-size:21px; color:black; font-weight:800; text-align:right; margin:0">
+<span data-aln="455">{{ order.payment.total }}</span>
+</h2>
+<!-- Passenger -->
+<div class="receipt-passenger" data-aln="460" style="-webkit-text-size-adjust:none; margin-bottom:21px">
+<h4 data-aln="470" style="font-weight:800; font-size:14px; color:black; margin:21px 0 13px">Passenger &amp; Booker</h4>
+<p data-aln="473" style="-webkit-text-size-adjust:none; margin:8px 0">
+              {{ user.first_name }} {{ user.last_name }}
+            </p>
+</div>
+<!-- Breakdown -->
+<div class="receipt-breakdown" data-aln="479" style="-webkit-text-size-adjust:none; margin-bottom:21px">
+<h4 data-aln="480" style="font-weight:800; font-size:14px; color:black; margin:21px 0 13px">Breakdown</h4>
+<div class="receipt-table-wrap" data-aln="482" style="-webkit-text-size-adjust:none; border-top:1px solid #000; border-bottom:1px solid #000; color:#999">
+<table cellpadding="0" cellspacing="0" class="small" style="font-size:11px; width:100%; border-collapse:collapse" width="100%">
+<tbody><tr class="receipt-upperline">
+<td data-aln="531" style="-webkit-text-size-adjust:none; padding:8px 10px 8px 0; border-top:1px solid black !important">
+<span class="black" data-aln="532" style="color:#000">Total</span>
+</td>
+<td align="right" data-aln="534" style="-webkit-text-size-adjust:none; padding:8px 10px 8px 0; text-align:right; white-space:nowrap; padding-right:0; border-top:1px solid black !important">
+<span class="black" data-aln="535" style="color:#000">{{ order.payment.total }}</span>
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<!-- Reference -->
+</div>
+</div>
+<div class="receipt-cell receipt-cell-right" data-aln="636" style="-webkit-text-size-adjust:none; float:left; width:400px" width="400">
+<div class="receipt-right-inner" data-aln="637" style="-webkit-text-size-adjust:none; padding-left:10px">
+<!-- Map -->
+<div class="receipt-map" data-aln="639" style="-webkit-text-size-adjust:none; margin-bottom:21px">
+<img alt="" data-aln="640" src="https://maps.googleapis.com/maps/api/staticmap?center=Australia&amp;size=640x400&amp;style=element:labels|visibility:off&amp;style=element:geometry.stroke|visibility:off&amp;style=feature:landscape|element:geometry|saturation:-100&amp;style=feature:water|saturation:-100|invert_lightness:true&amp;key=AIzaSyAjUXZOuJsJCx9zZo4duxLjzRtj1z-IKlM" style="display:block; width:100%" width="100%">
+</div>
+<!-- Class Distance Ride Time -->
+<div class="receipt-ride-info" data-aln="646" style="-webkit-text-size-adjust:none; margin-bottom:21px">
+<table cellpadding="0" cellspacing="0" style="width:100%" width="100%">
+<tbody><tr>
+<td data-aln="649" style="-webkit-text-size-adjust:none; padding:0px 10px 0px 0">
+<h4 data-aln="650" style="font-weight:800; font-size:14px; color:black; margin:21px 0 13px; margin-top:0 !important">Class</h4>
+                  {{ order.offer.title }}
+                </td>
+<td data-aln="653" style="-webkit-text-size-adjust:none; padding:0px 10px 0px 0">
+<h4 data-aln="654" style="font-weight:800; font-size:14px; color:black; margin:21px 0 13px; margin-top:0 !important">Distance</h4>
+                  {{ order.formatted_serving_distance }}
+                </td>
+<td data-aln="657" style="-webkit-text-size-adjust:none; padding:0px 10px 0px 0; padding-right:0">
+<h4 data-aln="658" style="font-weight:800; font-size:14px; color:black; margin:21px 0 13px; margin-top:0 !important">Ride Time</h4>
+                  {{ order.formatted_serving_time }}
+                </td>
+</tr>
+</tbody></table>
+</div>
+<hr height="0" style="height:0; border:0; border-bottom:1px solid #ddd; line-height:0; margin:21px 0">
+<!-- Driver -->
+<hr height="0" style="height:0; border:0; border-bottom:1px solid #ddd; line-height:0; margin:21px 0"><p class="small grey" data-aln="698" style="-webkit-text-size-adjust:none; font-size:11px; color:#999; margin:0 0 5px">{{ wheely_legal_info.name }}<br>{{ wheely_legal_info.address }}</p>
+<p class="small grey" data-aln="699" style="-webkit-text-size-adjust:none; font-size:11px; color:#999; margin:0 0 5px">
+            Wheely's fee: {{ order.license_fee }}
+          </p>
+</div>
+</div>
+<div class="receipt-clear" data-aln="706" style="-webkit-text-size-adjust:none; clear:both"></div>
+</div>
+<h2 data-aln="709" style="font-size:21px; color:black; font-weight:800; margin:31px 0 15px">111333 444 222</h2>
+<div class="receipt-row receipt-bottom" data-aln="711" style="-webkit-text-size-adjust:none">
+<hr height="0" style="height:0; border:0; border-bottom:1px solid #ddd; line-height:0; margin:21px 0">
+<div class="receipt-cell receipt-cell-left" data-aln="714" style="-webkit-text-size-adjust:none; float:left; width:400px" width="400">
+<div class="receipt-left-inner" data-aln="715" style="-webkit-text-size-adjust:none; padding-right:10px">
+<!-- Invite -->
+<div class="receipt-invite" data-aln="717" style="-webkit-text-size-adjust:none">
+<h4 data-aln="718" style="font-weight:800; font-size:14px; color:black; margin:21px 0 13px; margin-top:0">Get Free Rides!</h4>
+<p data-aln="720" style="-webkit-text-size-adjust:none; margin:8px 0">
+              Invite your friends to try Wheely &amp; both of you will get a free ride up to 1490 Tap button to share your personal code:
+            </p>
+<table style="width:100%; border-collapse:collapse" width="100%">
+<tbody><tr>
+<td align="center" class="receipt-invite-code" data-aln="726" style="-webkit-text-size-adjust:none; vertical-align:middle; border:1px solid #ddd; width:90%; padding:8px; text-align:center" width="90%">
+<h4 data-aln="727" style="font-weight:800; font-size:14px; color:black; margin:0 !important; margin-top:0">{{ ORDER.INVITE.CODE }}</h4>
+</td>
+<td align="center" data-aln="729" style="-webkit-text-size-adjust:none; padding:0; text-align:center; vertical-align:middle; width:1%; border:1px solid #ddd" width="1%">
+<a data-aln="730" href="https://www.facebook.com/sharer/sharer.php?u=https://wheely.com/en/invite/{{ order.invite.code }}" style="-webkit-text-size-adjust:none; color:#0a63d0; text-decoration:none; cursor:pointer; outline:none; border-bottom:none !important; display:block" target="_blank">
+<img alt="fb" data-aln="731" height="40" src="https://s3-eu-west-1.amazonaws.com/static.wheely.com/receipt/share_facebook_color_normal_2x.png" style="border:none; display:block; margin:0 auto" width="40">
+</a>
+</td>
+<td align="center" data-aln="734" style="-webkit-text-size-adjust:none; padding:0; text-align:center; vertical-align:middle; width:1%; border:1px solid #ddd" width="1%">
+<a data-aln="735" data-click-track-id="1571" href="https://twitter.com/share?url=https://wheely.com/en/invite/{{ order.invite.code }}&amp;utm_swu=1571" style="-webkit-text-size-adjust:none; color:#0a63d0; text-decoration:none; cursor:pointer; outline:none; border-bottom:none !important; display:block" target="_blank">
+<img alt="tw" data-aln="736" height="40" src="https://s3-eu-west-1.amazonaws.com/static.wheely.com/receipt/share_twitter_color_normal_2x.png" style="border:none; display:block; margin:0 auto" width="40">
+</a>
+</td>
+<td align="center" data-aln="746" style="-webkit-text-size-adjust:none; padding:0; text-align:center; vertical-align:middle; width:1%; border:1px solid #ddd" width="1%">
+<a data-aln="747" data-click-track-id="3753" href="mailto:?subject=Join Wheely!&amp;body=Hey!%0D%0A%0D%0AJoin Wheely with my promo code {{ order.invite.code }} and get {{ order.invite.formatted_amount }} off your first ride!%0D%0A%0D%0Ahttps://wheely.com/en/invite/{{ order.invite.code }}" style="-webkit-text-size-adjust:none; color:#0a63d0; text-decoration:none; cursor:pointer; outline:none; border-bottom:none !important; display:block">
+<img alt="@" data-aln="748" height="40" src="https://s3-eu-west-1.amazonaws.com/static.wheely.com/receipt/share_mail_color_normal_2x.png" style="border:none; display:block; margin:0 auto" width="40">
+</a>
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+</div>
+<div class="receipt-cell receipt-cell-right" data-aln="757" style="-webkit-text-size-adjust:none; float:left; width:400px" width="400">
+<div class="receipt-right-inner" data-aln="758" style="-webkit-text-size-adjust:none; padding-left:10px">
+<!-- Need Help? -->
+<h4 data-aln="760" style="font-weight:800; font-size:14px; color:black; margin:21px 0 13px; margin-top:0">Need Help?</h4>
+<p data-aln="761" style="-webkit-text-size-adjust:none; margin:8px 0">If you have any questions, please feel free to contact us <a data-aln="761" data-click-track-id="4620" href="mailto:support@wheely.com" style="-webkit-text-size-adjust:none; color:#0a63d0; text-decoration:none; cursor:pointer; outline:none">support@wheely.com</a>.</p>
+</div>
+</div>
+<div class="receipt-clear" data-aln="765" style="-webkit-text-size-adjust:none; clear:both"></div>
+</div>
+</div>
+
+</body></html>
