@@ -1,0 +1,800 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="utf-8">
+  <title>Receipt</title>
+  <style media="screen" type="text/css">
+    /* Headers */
+    h2 { font-size: 21px; color: black; font-weight: 800; margin: 31px 0 15px; }
+    h4 { font-weight: 800; font-size: 14px; color: black; margin: 21px 0 13px; }
+
+    /* Text */    
+    div,p,a,li,td { -webkit-text-size-adjust: none; }
+    p { margin: 8px 0; }  
+    .normal { font-weight: 400; }
+    .light { font-weight: 200; }
+    .bold { font-weight: 600; }
+    .small { font-size: 11px; }
+    p.small { margin: 0 0 5px; }
+    .nowrap { white-space: nowrap; }
+    hr { height: 0; border: 0; border-bottom: 1px solid #ddd; line-height: 0; margin: 21px 0; clear: both; }
+    .clear { clear: both; line-height: 0; font-size: 0; }
+    b { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 600; }
+    .italic { font-style: italic; }
+    .red { color: #ae1f26; }
+    .grey { color: #999; }
+    .black { color: #000; }
+    .nobr { white-space: nowrap;}
+
+    /* Links */
+    a, .pseudo { color: #0a63d0; text-decoration: none; cursor: pointer; outline: none; }
+    .pseudo { border-bottom: 1px dashed rgba(10, 99, 208, 0.4); }
+    .pseudo.active { color: #000000; border-bottom: 1px dashed rgba(0, 0, 0, 0.4); }
+    a img { border: none; }
+    a:hover, .pseudo:hover { color: #187ffc; border-bottom-color: rgba(24, 127, 252, 0.25); }
+    a:active, .pseudo:active { color: #000000; border-bottom-color: rgba(0, 0, 0, 0.25); }
+
+    /* Receipt */
+    .shitter {
+      width: 800px !important;
+      height: 1px;
+    }
+    .receipt {
+      color: #444;
+      -webkit-font-smoothing: antialiased;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      width: 800px;
+      min-width: 800px;
+      margin: 0 0 21px;
+    }
+    .receipt-clear {
+      clear: both;
+    }
+    .receipt table {
+      width: 100%;
+    }
+    .receipt-row {}
+    .receipt-cell {
+      float: left;
+      width: 400px;
+    }
+    .receipt-left-inner {
+      padding-right: 10px;
+    }
+    .receipt-right-inner {
+      padding-left: 10px;
+    }
+    .receipt-clear {
+      clear: both;
+    }
+    .receipt-top {
+      margin-bottom: 13px;
+    }
+    .receipt-logo {
+      margin-bottom: 8px;
+      text-align: right;
+    }
+    .receipt-logo img {
+      width: 160px;
+    }
+
+    /* Title */
+    .receipt-title td:last-child {
+      width: 26px;
+      padding-left: 21px;
+    }
+    .receipt-title h2 {
+      display: inline-block;
+      margin: 0;
+    }
+    .receipt-date {
+      white-space: nowrap;
+    }
+    .receipt-view-online {
+      text-align: right;
+      padding-top: 7px;
+    }
+
+    /* Route */
+    .receipt-route {
+      border-top: 1px solid black;
+      border-bottom: 1px solid black;
+      margin-bottom: 8px;
+      padding: 3px 0;
+      margin-bottom: 13px;
+    }
+    .receipt-route td {
+      padding: 5px 10px 5px 0;
+      width: 1%;
+      white-space: nowrap;
+    }
+    .receipt-route td:last-child {
+      padding-right: 0;
+      width: auto;
+      white-space: normal;
+    }
+
+    /* Price */
+    .receipt-price {
+      text-align: right;
+      margin: 0;
+    }
+    .receipt-passenger,
+    .receipt-breakdown,
+    .receipt-reference,
+    .receipt-map,
+    .receipt-ride-info {
+      margin-bottom: 21px;
+    }
+
+    /* Breakdown */
+    .receipt-breakdown .receipt-table-wrap {
+      border-top: 1px solid #000;
+      border-bottom: 1px solid #000;
+      color: #999;
+    }
+    .receipt-breakdown table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .receipt-breakdown td {
+      padding: 8px 10px 8px 0;
+      border-top: 1px solid #ddd;
+    }
+    .receipt-breakdown table tr:first-child > td {
+      border: none !important;
+    }
+    .receipt-breakdown tr.receipt-upperline td {
+      border-top: 1px solid black !important;
+    }
+    .receipt-breakdown td:last-child {
+      text-align: right;
+      white-space: nowrap;
+      padding-right: 0;
+    }
+    .receipt-breakdown td.receipt-card {
+      padding: 0 10px 0 0 !important;
+    }
+    .receipt-card-logo {
+      display: inline-block;
+      height: 15px;
+      width: 47px;
+    }
+    .receipt-breakdown td.receipt-card tr td {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+    .receipt-card table {
+      width: auto;
+      border: none;
+    }
+    .receipt-card td {
+      padding: 0 5px 0 0 !important;
+      vertical-align: middle;
+      border: none !important;
+    }
+    .receipt-breakdown td.receipt-card td:last-child {
+      padding: 0 !important;
+    }
+    .receipt-card-icon {
+      width: 47px;
+      height: 26px;
+      display: block;
+    }
+
+    /* Map */
+    .receipt-map {
+      margin-bottom: 21px;
+    }
+    .receipt-map img {
+      display: block;
+      width: 100%;
+    }
+
+    /* Ride Info */
+    .receipt-ride-info h4 {
+      margin-top: 0 !important;
+    }
+
+    .receipt-ride-info table {
+      width: 100%;
+    }
+    .receipt-ride-info td {
+      padding: 0px 10px 0px 0;
+    }
+    .receipt-ride-info td:last-child {
+      padding-right: 0;
+    }
+
+    /* Driver */
+    .receipt-driver table {
+      width: 100%;
+    }
+    .receipt-driver h4 {
+      margin-top: 0 !important;
+    }
+    .receipt-driver td {
+      padding: 0px 10px 0px 0px;
+      vertical-align: top;
+    }
+    .receipt-driver td:last-child {
+      padding-right: 0;
+      width: 100px;
+    }
+    .receipt-driver td:last-child img {
+      width: 100%;
+    }
+
+    /* Invite */
+    .receipt-invite table {
+      border-collapse: collapse;
+    }
+    .receipt-invite td {
+      padding: 0;
+      text-align: center;
+      vertical-align: middle;
+      width: 1%;
+      border: 1px solid #ddd;
+    }
+    .receipt-invite td.receipt-invite-code {
+      width: 90%;
+      padding: 8px;
+      text-align: center;
+    }
+    .receipt-invite-code h4 {
+      margin: 0 !important;
+    }
+    .receipt-invite a {
+      border-bottom: none !important;
+      display: block;
+    }
+    .receipt-invite a img {
+      display: block;
+      margin: 0 auto;
+    }
+    .receipt-bottom h4 {
+      margin-top: 0;
+    }
+
+    .receipt-promo img {
+      width: 100%;
+    }
+  </style>
+  <style media="only screen and (max-width: 10000px)" type="text/css">
+    /* Desktop styles */
+    
+    @media only screen and (max-width: 10000px) {
+      .shitter {
+        width: 0 !important;
+        display: none !important;
+      }
+      .receipt {
+        width: auto !important;
+        min-width: 700px !important;
+        max-width: 970px !important;
+        margin-bottom: 0 !important;
+      }
+      .receipt-cell {
+        min-width: 340px !important;
+        width: 50% !important;
+      }
+    }
+  </style>
+  <style media="only screen and (max-width: 700px)" type="text/css">
+    /* Mobile styles */
+    
+    @media only screen and (max-width: 700px) {
+      h2 {
+        font-size: 19px !important;
+        letter-spacing: 0.3px !important;
+      }
+      h4 {
+        font-size: 13px !important;
+        margin: 13px 0 8px !important;
+        letter-spacing: 0.2px !important;
+      }
+      p {
+        margin: 5px 0 !important;
+      }
+      p.small {
+        margin: 0 0 3px !important;
+      }
+      hr {
+        margin: 13px 0 !important;
+      }
+      .receipt {
+        min-width: 0 !important;
+        max-width: none !important;
+        width: auto !important;
+        font-size: 13px !important;
+      }
+      .receipt-logo {
+        margin: 5px 0 !important;
+        text-align: left !important;
+      }
+      .receipt-logo img {
+        width: 140px !important;
+      }
+      .small {
+        font-size: 11px !important;
+      }
+      .receipt-cell {
+        float: none !important;
+        width: auto !important;
+      }
+      .receipt-left-inner,
+      .receipt-right-inner {
+        padding: 0 !important;
+      }
+      .receipt-title {
+        margin: 13px 0 0 !important;
+      }
+      .receipt-view-online {
+        padding: 0 !important;
+        margin: 0px 0 5px !important;
+        text-align: left !important;
+      }
+      .receipt-route {
+        margin-bottom: 8px !important;
+      }
+      .receipt-route td {
+        padding-top: 3px !important;
+        padding-bottom: 3px !important;
+      }
+      .receipt-passenger,
+      .receipt-breakdown,
+      .receipt-reference,
+      .receipt-map,
+      .receipt-ride-info,
+      .receipt-invite,
+      .receipt-promo {
+        margin-bottom: 13px !important;
+      }
+      .receipt-promo {
+        margin-top: 0 !important;
+      }
+      .receipt-invite td.receipt-invite-code {
+        padding: 5px !important;
+      }
+    }
+  </style>
+  <style media="only print" type="text/css">
+    /* Mobile styles */
+    
+    @media only print {
+      .shitter {
+        display: none !important;
+        width: auto !important;
+      }
+      .receipt {
+        min-width: 0 !important;
+        width: auto !important;
+      }
+      .receipt-cell {
+        min-width: 0 !important;
+        width: 50% !important;
+      }
+      .receipt-logo {
+        float: right !important;
+      }
+      .receipt-top .receipt-cell-right {
+        display: none !important;
+      }
+      .receipt-bottom,
+      .noprint {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="shitter"></div>
+  <div class="receipt">
+    <div class="receipt-top">
+      <div class="receipt-logo">
+        <img alt="Wheely" src="https://s3-eu-west-1.amazonaws.com/static.wheely.com/receipt/wheely.png">
+      </div>
+      <div class="receipt-row">
+        <div class="receipt-cell receipt-cell-left">
+          <div class="receipt-left-inner">
+            <div class="receipt-title">
+              <h2 >Поездка #{{order.number}}</h2>
+              <span class="receipt-date normal">от {{order.formatted_sort_date}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="receipt-cell receipt-cell-right" style="text-align: right;">
+          <div class="receipt-right-inner">
+            <div class="receipt-view-online">
+              <a data-swu-id="788" href="https://wheely.com/receipt/{{ order.id }}" >Посмотреть на сайте</a>
+            </div>
+          </div>
+        </div>
+        <div class="receipt-clear"></div>
+      </div>
+    </div>
+    <div class="receipt-row receipt-body">
+      <div class="receipt-cell receipt-cell-left">
+        <div class="receipt-left-inner">
+          {% if order.route %}
+          <!-- Route -->
+          <div class="receipt-route">
+            <table cellpadding="0" cellspacing="0">
+              {% for stop in order.route %}
+              <tbody>
+                <tr>
+                  <td >
+                    {% if loop.first %}
+                    <img alt="" height="21" src="https://s3-eu-west-1.amazonaws.com/static.wheely.com/receipt/pin_pickup_outline_2x.png" width="16"> {% elif loop.last %}
+                    <img alt="" height="19" src="https://s3-eu-west-1.amazonaws.com/static.wheely.com/receipt/pin_dropoff_outline_2x.png" width="15"> {% else %}
+                    <img alt="" height="15" src="https://s3-eu-west-1.amazonaws.com/static.wheely.com/receipt/pin_extra_stop_outline_2x.png" width="15"> {% endif %}
+                  </td>
+                  <td >
+                    <span class="small grey">
+<span >{{ stop.formatted_local_time|replace(':', '</span>:<span >') }}</span>
+                    </span>
+                  </td>
+                  <td >
+                    {% if stop.location.go_to_pin %} Точка на карте {% else %} {{stop.location.transliterated_line1}},
+                    <span class="small grey">
+                          {{stop.location.transliterated_line2}}
+                        </span> {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% endif %}
+          <!-- Price -->
+          <h2 class="receipt-price">
+{% if order.payment and ((order.payment.status == 'unpaid') or (order.payment.status == 'unpayable')) %}
+<span class="red">{{order.payment.total}}</span>
+{% else %}
+<span >{{order.payment.total}}</span>
+{% endif %}
+</h2>
+          <!-- Passenger -->
+          <div class="receipt-passenger">
+            {% if order.passenger %}
+            <h4>Пассажир</h4>
+            <p>
+              {{order.passenger.name}}
+            </p>
+            <h4>Заказчик</h4> {% else %}
+            <h4>Заказчик</h4> {% endif %}
+            <p>
+              {{user.first_name}} {{user.last_name}}
+            </p>
+          </div>
+          <!-- Breakdown -->
+          <div class="receipt-breakdown">
+            <h4>Детали платежа</h4>
+            <div class="receipt-table-wrap">
+              <table cellpadding="0" cellspacing="0" class="small">
+                {% if order.breakdown %} 
+                  {% for row in order.breakdown %} 
+                    <tr>
+                      <td>
+                        {{row.name}}
+                      </td>
+                      <td>
+                        {{row.value}}
+                      </td>
+                    </tr>
+                  {% endfor %} {% endif %} {% if order.payment and order.payment.subtotal %}
+                  <tr class="receipt-upperline">
+                    <td>
+                      <span class="black">Всего</span>
+                    </td>
+                    <td>
+                      <span class="black">{{order.payment.subtotal}}</span>
+                    </td>
+                  </tr>
+                  {% endif %} {% if order.payment and order.payment.discount %}
+                  <tr>
+                    <td>
+                      <span>Скидка</span>
+                    </td>
+                    <td>
+                      <span>{{order.payment.discount}}</span>
+                    </td>
+                  </tr>
+                  {% endif %} 
+
+                  {% if order.payment and order.payment.rounding %}
+                  <tr>
+                    <td>
+                      <span>Округление</span>
+                    </td>
+                    <td>
+                      <span>{{order.payment.rounding}}</span>
+                    </td>
+                  </tr>
+                  {% endif %}
+
+                  <tr class="receipt-upperline">
+                    <td>
+                      <span class="black">Итого</span>
+                    </td>
+                    <td>
+                      <span class="black">{{order.payment.total}}</span>
+                    </td>
+                  </tr>
+                  {% if order.payment.type == 'card' and order.payment.card %} {% if order.payment and ((order.payment.status == 'unpaid') or (order.payment.status == 'unpayable')) %}
+                  <tr>
+                    <td class="receipt-card">
+                      <table cellpadding="0" cellspacing="0">
+                        <tbody>
+                          <tr>
+                            <td>
+                              <span class="red">Не удалось оплатить</span>
+                            </td>
+                            <td>
+                              {% if order.payment.card.type == 'visa' %}
+                              <img alt="" class="receipt-card-icon" src="https://s3-eu-west-1.amazonaws.com/static.wheely.com/receipt/card_visa_2x.png"> {% elif order.payment.card.type == 'mastercard' %}
+                              <img alt="" class="receipt-card-icon" src="https://s3-eu-west-1.amazonaws.com/static.wheely.com/receipt/card_mastercard_2x.png"> {% elif order.payment.card.type == 'amex' %}
+                              <img alt="" class="receipt-card-icon" src="https://s3-eu-west-1.amazonaws.com/static.wheely.com/receipt/card_amex_1x.png"> {% endif %}
+                            </td>
+                            <td>
+                              {{ order.payment.card.number }}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                    <td>—</td>
+                  </tr>
+                  <tr class="receipt-no-border">
+                    <td>
+                      <span class="red">
+                          Ваш долг
+                        </span>
+                      <p class="small">
+                        <a data-click-track-id="9699" href="https://wheely.com/ru/faq/#debts">
+                            Почему на моем счету долг?
+                          </a>
+                      </p>
+                    </td>
+                    <td>
+                      <span class="red">
+                          {{order.payment.total}}
+                        </span>
+                    </td>
+                  </tr>
+                  {% else %}
+                  <tr class="receipt-no-border">
+                    <td class="receipt-card">
+                      <table cellpadding="0" cellspacing="0">
+                        <tbody>
+                          <tr>
+                            <td>Оплачено</td>
+                            <td>
+                              {% if order.payment.card.type == 'visa' %}
+                              <img alt="" class="receipt-card-icon" src="https://s3-eu-west-1.amazonaws.com/static.wheely.com/receipt/card_visa_2x.png"> {% elif order.payment.card.type == 'mastercard' %}
+                              <img alt="" class="receipt-card-icon" src="https://s3-eu-west-1.amazonaws.com/static.wheely.com/receipt/card_mastercard_2x.png"> {% elif order.payment.card.type == 'amex' %}
+                              <img alt="" class="receipt-card-icon" src="https://s3-eu-west-1.amazonaws.com/static.wheely.com/receipt/card_amex_1x.png"> {% endif %}
+                            </td>
+                            <td>
+                              {{ order.payment.card.number }}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                    <td>
+                      {{ order.payment.total }}
+                    </td>
+                  </tr>
+                  {% endif %} {% elif order.payment.type == 'invoice' %}
+                  <tr class="receipt-no-border">
+                    <td>
+                      Оплачено с корпоративного счета
+                    </td>
+                    <td>
+                      {{ order.payment.total }}
+                    </td>
+                  </tr>
+                  {% elif order.payment.type == 'apple_pay' %}
+                  <tr class="receipt-no-border">
+                    <td class="receipt-card">
+                      <table cellpadding="0" cellspacing="0">
+                        <tbody>
+                          <tr>
+                            <td>Оплачено</td>
+                            <td>
+                              <img alt="" width="45" height="29" style="display: block;" src="https://s3-eu-west-1.amazonaws.com/static.wheely.com/receipt/apple_pay_2x.png">
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                    <td>
+                      {{ order.payment.total }}
+                    </td>
+                  </tr>
+                  {% endif %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- Reference -->
+          {% if order.payment and order.payment.type == 'invoice' %}
+          <div class="receipt-reference">
+            {% if order.reference %}
+            <h4>Цель поездки</h4>
+            <p >{{order.reference}}</p>
+            {% else %}
+            <p><a data-click-track-id="4123" href="https://wheely.com/receipt/{{order.id}}/">Добавить цель поездки</a></p>
+            {% endif %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="receipt-cell receipt-cell-right">
+        <div class="receipt-right-inner">
+          <!-- Map -->
+          <div class="receipt-map">
+            <img alt="" src="https://maps.googleapis.com/maps/api/staticmap
+?size=480x380
+&key=AIzaSyAjUXZOuJsJCx9zZo4duxLjzRtj1z-IKlM
+&scale=2
+{% for stop in order.route -%}
+{% if loop.first %}
+&markers=icon:http://static.wheely.com/receipt/pin_pickup_email_2x.png|scale:2|shadow:true|{{ stop.location.position|join(',') }}
+{% elif loop.last %}
+&markers=icon:http://static.wheely.com/receipt/pin_dropoff_email_2x.png|scale:2|shadow:true|{{ stop.location.position|join(',') }}
+{% else %}
+&markers=icon:http://static.wheely.com/receipt/pin_extra_stop_email_2x.png|scale:2|shadow:false|{{ stop.location.position|join(',') }}
+{% endif %}
+{% endfor %}
+&path=weight:5|color:0x000000|enc:{{order.tracks|e}}" >
+          </div>
+          <!-- Class Distance Ride Time -->
+          <div class="receipt-ride-info">
+            <table cellpadding="0" cellspacing="0">
+              <tbody>
+                <tr>
+                  <td>
+                    <h4>Тариф</h4> {{ order.offer.title }}
+                  </td>
+                  <td>
+                    <h4>Расстояние</h4> {{ order.formatted_serving_distance }}
+                  </td>
+                  <td>
+                    <h4>Время</h4> {{ order.formatted_serving_time }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <hr>
+          <!-- Driver -->
+          {% if order.car and order.car.driver %}
+          <div class="receipt-driver">
+            <table cellpadding="0" cellspacing="0">
+              <tbody>
+                <tr>
+                  <td>
+                    <h4>Исполнитель</h4>
+                    <p>
+                      {{ order.car.driver.name }} {% if order.car.driver.rating and order.car.driver.rating > 3.5 %}
+                      <span class="nowrap">☆ {{ order.car.driver.rating }}</span> {% endif %}
+                    </p>
+                    {% if order.partner_info %}
+                    <p class="small grey">
+                      {% for line in order.partner_info %} {{ line.name }}: {{ line.value }}
+                      <br> {% endfor %}
+                    </p>
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if order.car.driver.photo %}
+                    <img alt="{{ order.car.driver.name }}" height="100" src="{{ order.car.driver.photo }}" widht="100"> {% endif %}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          {% endif %}
+          <hr>
+          <p class="small grey">
+            {{ wheely_legal_info.name }}<br />
+            {{ wheely_legal_info.address }}<br />
+            Лицензионное вознаграждение: {{ order.license_fee }}
+          </p>
+        </div>
+      </div>
+      <div class="receipt-clear"></div>
+    </div>
+    <div class="receipt-row receipt-bottom">
+      <hr>
+      <div class="receipt-cell receipt-cell-left">
+        <div class="receipt-left-inner">
+          <!-- Invite -->
+          <div class="receipt-invite">
+            <h4>Бесплатные поездки</h4>
+            <p>
+              Предложите другу воспользоваться Вили, и тогда вы оба получите бесплатную поездку на сумму до {{order.invite.formatted_amount}} Нажмите на кнопку, чтобы отправить ваш личный промокод:
+            </p>
+            <table>
+              <tbody>
+                <tr>
+                  <td class="receipt-invite-code">
+                    <h4>{{ order.invite.code|upper }}</h4>
+                  </td>
+                  <td>
+                    <a data-click-track-id="6780" href="https://www.facebook.com/sharer/sharer.php?u=https://wheely.com/ru/invite/{{ order.invite.code }}" target="_blank">
+                      <img alt="fb" height="40" src="https://s3-eu-west-1.amazonaws.com/static.wheely.com/receipt/share_facebook_color_normal_2x.png" width="40">
+                    </a>
+                  </td>
+                  <td>
+                    <a data-click-track-id="5809" href="https://twitter.com/share?url=https://wheely.com/ru/invite/{{ order.invite.code }}" target="_blank">
+                      <img alt="tw" height="40" src="https://s3-eu-west-1.amazonaws.com/static.wheely.com/receipt/share_twitter_color_normal_2x.png" width="40">
+                    </a>
+                  </td>
+                  {% if order.invite.currency_code == 'RUB' %}
+                  <td>
+                    <a data-click-track-id="8470" href="http://vk.com/share.php?url=https://wheely.com/ru/invite/{{ order.invite.code }}" target="_blank">
+                      <img alt="vk" height="40" src="https://s3-eu-west-1.amazonaws.com/static.wheely.com/receipt/share_vk_color_normal_2x.png" width="40">
+                    </a>
+                  </td>
+                  {% endif %}
+                  <td>
+                    <a data-swu-id="701" href="mailto:?subject=Зарегистрируйся в Вили!&amp;body=Привет!%0D%0A%0D%0AЗарегистрируйся в Вили с моим промо-кодом {{ order.invite.code }} и получи бесплатную поездку на сумму до {{ order.invite.formatted_amount }}!%0D%0A%0D%0Ahttps://wheely.com/ru/invite/{{ order.invite.code }}">
+                      <img alt="@" height="40" src="https://s3-eu-west-1.amazonaws.com/static.wheely.com/receipt/share_mail_color_normal_2x.png" width="40">
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="receipt-cell receipt-cell-right">
+        <div class="receipt-right-inner">
+          <!-- Promo Banner -->
+          {% if promo_photo_url %}
+            <div class="receipt-promo">
+              <h4>Заманчивое предложение</h4>
+              <a data-click-track-id="3661" href="https://app.adjust.com/9kcedu_xuihmj?campaign=wheely&fallback=http%3A%2F%2Fonetwotrip.com">
+                <img src="{{ promo_photo_url }}" alt="Промокод для OneTwoTrip" />
+              </a>
+            </div>
+          {% else %}
+            <!-- Need Help? -->
+            <div class="receipt-support">
+              <h4>Поддержка</h4>
+              <p>Пишите нам по любым вопросам на <a data-click-track-id="9009" href="mailto:support@wheely.com">support@wheely.com</a>.</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="receipt-clear"></div>
+    </div>
+
+    {% if promo_photo_url %}
+      <div class="receipt-row noprint">
+        <div class="receipt-cell receipt-cell-left">
+          <div class="receipt-left-inner">
+            <!-- Need Help? -->
+            <div class="receipt-support">
+              <h4>Поддержка</h4>
+              <p>Пишите нам по любым вопросам на <a data-click-track-id="3069" href="mailto:support@wheely.com">support@wheely.com</a>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+  <hr style="border-bottom: 1px solid #fff;" />
+</body>
+
+</html>
